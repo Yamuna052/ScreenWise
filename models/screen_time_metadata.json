@@ -1,0 +1,29 @@
+{
+  "target": "Screen On Time (hours/day)",
+  "all_features": [
+    "Device Model",
+    "Operating System",
+    "App Usage Time (min/day)",
+    "Battery Drain (mAh/day)",
+    "Number of Apps Installed",
+    "Data Usage (MB/day)",
+    "Age",
+    "Gender"
+  ],
+  "numeric_features": [
+    "App Usage Time (min/day)",
+    "Battery Drain (mAh/day)",
+    "Number of Apps Installed",
+    "Data Usage (MB/day)",
+    "Age"
+  ],
+  "categorical_features": [
+    "Device Model",
+    "Operating System",
+    "Gender"
+  ],
+  "mae_hours": 0.5926124543644189,
+  "rmse_hours": 0.7418491523538376,
+  "r2": 0.9386631740064464,
+  "dataset_rows": 700
+}

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScreenWise | Screen Time Insights</title>
+
+    <style>
+
+        :root {
+
+            --bg: #f6f7f4;
+
+            --card: #ffffff;
+
+            --text: #202a24;
+
+            --muted: #727b74;
+
+            --green: #246b4b;
+
+            --green-light: #e8f2e9;
+
+            --border: #e4e9e3;
+
+            --orange: #f1b66b;
+
+            --shadow: 0 8px 28px rgba(27, 49, 34, 0.055);
+
+        }
+
+
+
+        \* { box-sizing: border-box; }
+
+
+
+        body {
+
+            margin: 0;
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            font-family: Inter, -apple-system, BlinkMacSystemFont,
+
+                         "Segoe UI", sans-serif;
+
+            line-height: 1.5;
+
+        }
+
+
+
+        .shell { max-width: 1180px; margin: auto; padding: 28px 22px 48px; }
+
+
+
+        header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 16px;
+
+            margin-bottom: 32px;
+
+        }
+
+
+
+        .brand { display: flex; align-items: center; gap: 12px; }
+
+
+
+        .logo {
+
+            width: 44px;
+
+            height: 44px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 14px;
+
+            background: var(--green);
+
+            color: white;
+
+            font-size: 23px;
+
+        }
+
+
+
+        h1, h2, h3, p { margin-top: 0; }
+
+        .brand h1 { font-size: 22px; margin: 0; letter-spacing: -0.6px; }
+
+        .brand p { margin: 2px 0 0; color: var(--muted); font-size: 13px; }
+
+
+
+        .pill {
+
+            padding: 8px 13px;
+
+            border-radius: 999px;
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+            font-size: 12px;
+
+            font-weight: 650;
+
+        }
+
+
+
+        .hero {
+
+            padding: 32px;
+
+            border-radius: 24px;
+
+            background: #e8efe5;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 24px;
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        .eyebrow {
+
+            color: var(--green);
+
+            text-transform: uppercase;
+
+            font-weight: 750;
+
+            font-size: 11px;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+
+        .hero h2 {
+
+            font-size: clamp(27px, 4vw, 40px);
+
+            line-height: 1.15;
+
+            letter-spacing: -1.2px;
+
+            max-width: 650px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+
+        .hero p { color: #58665b; max-width: 600px; margin-bottom: 0; }
+
+
+
+        .hero-icon {
+
+            flex-shrink: 0;
+
+            width: 110px;
+
+            height: 110px;
+
+            border-radius: 28px;
+
+            display: grid;
+
+            place-items: center;
+
+            background: rgba(255,255,255,.7);
+
+            font-size: 52px;
+
+        }
+
+
+
+        .layout {
+
+            display: grid;
+
+            grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr);
+
+            gap: 22px;
+
+            align-items: start;
+
+        }
+
+
+
+        .card {
+
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            box-shadow: var(--shadow);
+
+            min-width: 0;
+
+        }
+
+
+
+        .card-heading { margin-bottom: 22px; }
+
+        .card-heading h2 { font-size: 19px; margin-bottom: 5px; }
+
+        .card-heading p { color: var(--muted); font-size: 13px; margin-bottom: 0; }
+
+
+
+        .section-label {
+
+            font-size: 11px;
+
+            font-weight: 750;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.1px;
+
+            color: var(--green);
+
+            margin: 23px 0 13px;
+
+        }
+
+
+
+        .section-label:first-child { margin-top: 0; }
+
+
+
+        .fields {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+
+            gap: 16px;
+
+        }
+
+
+
+        .field { min-width: 0; }
+
+        label { display: block; font-size: 12px; font-weight: 650; margin-bottom: 7px; }
+
+
+
+        input, select {
+
+            width: 100%;
+
+            min-width: 0;
+
+            padding: 12px;
+
+            border: 1px solid #dce3dc;
+
+            border-radius: 10px;
+
+            background: #fff;
+
+            color: var(--text);
+
+            font: inherit;
+
+            font-size: 14px;
+
+        }
+
+
+
+        input:focus, select:focus {
+
+            outline: 2px solid #b8d7c0;
+
+            border-color: var(--green);
+
+        }
+
+
+
+        .hint { font-size: 11px; color: var(--muted); margin: 6px 0 0; }
+
+
+
+        .submit {
+
+            width: 100%;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            background: var(--green);
+
+            color: white;
+
+            padding: 14px 18px;
+
+            margin-top: 24px;
+
+            font-size: 14px;
+
+            font-weight: 750;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .submit:hover { background: #19583b; }
+
+
+
+        .result-card { margin-bottom: 20px; }
+
+
+
+        .result-label { color: var(--muted); font-size: 13px; margin-bottom: 7px; }
+
+
+
+        .result-number {
+
+            font-size: clamp(42px, 6vw, 58px);
+
+            line-height: 1.15;
+
+            font-weight: 780;
+
+            letter-spacing: -2px;
+
+        }
+
+
+
+        .result-number span {
+
+            font-size: 17px;
+
+            letter-spacing: 0;
+
+            font-weight: 550;
+
+            color: var(--muted);
+
+        }
+
+
+
+        .result-note { font-size: 12px; color: var(--muted); margin: 12px 0 0; }
+
+
+
+        .empty-state {
+
+            background: #f7f9f6;
+
+            border: 1px dashed #d6e0d6;
+
+            border-radius: 15px;
+
+            padding: 25px 18px;
+
+            text-align: center;
+
+        }
+
+
+
+        .empty-icon { font-size: 34px; margin-bottom: 8px; }
+
+        .empty-state h3 { font-size: 16px; margin-bottom: 7px; }
+
+        .empty-state p { font-size: 12px; color: var(--muted); margin: 0; }
+
+
+
+        .scenario {
+
+            padding: 18px;
+
+            border-radius: 14px;
+
+            background: #f8f6f0;
+
+            border: 1px solid #eee6d6;
+
+            margin-top: 16px;
+
+        }
+
+
+
+        .scenario h3 { font-size: 14px; margin-bottom: 8px; }
+
+        .scenario-values { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+        .scenario-values strong { font-size: 22px; }
+
+        .scenario-values span { display: block; font-size: 11px; color: var(--muted); }
+
+        .scenario p { font-size: 12px; color: #756b5b; margin: 12px 0 0; }
+
+
+
+        .suggestion {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+
+        .suggestion:last-child { border-bottom: 0; padding-bottom: 0; }
+
+        .suggestion-icon {
+
+            width: 36px;
+
+            height: 36px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 11px;
+
+            background: var(--green-light);
+
+            flex-shrink: 0;
+
+        }
+
+
+
+        .suggestion h3 { font-size: 13px; margin: 1px 0 4px; }
+
+        .suggestion p { font-size: 12px; color: var(--muted); margin: 0; }
+
+
+
+        .alert {
+
+            background: #fff0ec;
+
+            border: 1px solid #f3c9bd;
+
+            border-radius: 12px;
+
+            padding: 13px 15px;
+
+            color: #8e3423;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+
+        .disclaimer {
+
+            font-size: 11px;
+
+            color: var(--muted);
+
+            text-align: center;
+
+            margin-top: 25px;
+
+        }
+
+
+
+        footer {
+
+            text-align: center;
+
+            font-size: 12px;
+
+            color: var(--muted);
+
+            padding-top: 30px;
+
+        }
+
+
+
+        .chart-rows { display: grid; gap: 16px; margin-top: 18px; }
+        .chart-row { display: grid; grid-template-columns: 125px minmax(0, 1fr) 58px; gap: 10px; align-items: center; font-size: 12px; }
+        .chart-label { color: var(--muted); }
+        .bar-track { height: 18px; background: #edf1ec; border-radius: 999px; overflow: hidden; }
+        .bar-fill { height: 100%; min-width: 2px; border-radius: 999px; }
+        .bar-model { background: var(--green); }
+        .bar-scenario { background: var(--orange); }
+        .bar-goal { background: #6d91c2; }
+        .chart-value { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .goal-note { font-size: 12px; color: var(--muted); margin-top: 12px; }
+        @media (max-width: 520px) { .chart-row { grid-template-columns: 95px minmax(0, 1fr) 52px; gap: 7px; } }
+
+        @media (max-width: 800px) {
+
+            .layout { grid-template-columns: 1fr; }
+
+            .hero { padding: 25px; }
+
+            .hero-icon { width: 76px; height: 76px; font-size: 37px; }
+
+        }
+
+
+
+        @media (max-width: 520px) {
+
+            .shell { padding: 18px 13px 30px; }
+
+            header { margin-bottom: 20px; }
+
+            .brand h1 { font-size: 19px; }
+
+            .pill { font-size: 10px; }
+
+            .hero { padding: 21px; border-radius: 18px; }
+
+            .hero-icon { display: none; }
+
+            .card { padding: 19px; border-radius: 16px; }
+
+            .fields { grid-template-columns: 1fr; gap: 13px; }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="shell">
+
+    <header>
+
+        <div class="brand">
+
+            <div class="logo">◷</div>
+
+            <div>
+
+                <h1>ScreenWise</h1>
+
+                <p>Understand your digital habits</p>
+
+            </div>
+
+        </div>
+
+        <div class="pill">✦ ML-POWERED INSIGHTS</div>
+
+    </header>
+
+
+
+    <section class="hero">
+
+        <div>
+
+            <div class="eyebrow">Your digital wellbeing companion</div>
+
+            <h2>Make screen time a choice, not a habit.</h2>
+
+            <p>Explore an estimated daily screen-on time and discover small, practical ways to build healthier digital routines.</p>
+
+        </div>
+
+        <div class="hero-icon">🌿</div>
+
+    </section>
+
+
+
+    {% if error %}
+
+    <div class="alert">{{ error }}</div>
+
+    {% endif %}
+
+
+
+    <main class="layout">
+
+        <section class="card">
+
+            <div class="card-heading">
+
+                <h2>Explore your screen time</h2>
+
+                <p>Enter the details below to generate a model estimate.</p>
+
+            </div>
+
+
+
+            <form method="POST" action="/">
+
+                <div class="section-label">01 / Device details</div>
+
+                <div class="fields">
+
+                    <div class="field">
+
+                        <label for="device_model">Device model</label>
+
+                        <select id="device_model" name="device_model" required>
+
+                            {% for item in device_models %}
+
+                            <option value="{{ item }}" {% if values.device_model == item %}selected{% endif %}>{{ item }}</option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="operating_system">Operating system</label>
+
+                        <select id="operating_system" name="operating_system" required>
+
+                            {% for item in operating_systems %}
+
+                            <option value="{{ item }}" {% if values.operating_system == item %}selected{% endif %}>{{ item }}</option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="age">Age</label>
+
+                        <input id="age" name="age" type="number"
+
+                               min="{{ limits.age.min }}" max="{{ limits.age.max }}"
+
+                               value="{{ values.age }}" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="gender">Gender (dataset category)</label>
+
+                        <select id="gender" name="gender" required>
+
+                            {% for item in genders %}
+
+                            <option value="{{ item }}" {% if values.gender == item %}selected{% endif %}>{{ item }}</option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="section-label">02 / Usage and activity</div>
+
+                <div class="fields">
+
+                    <div class="field">
+
+                        <label for="app_usage">App usage (minutes/day)</label>
+
+                        <input id="app_usage" name="app_usage" type="number"
+
+                               min="{{ limits.app_usage.min }}" max="{{ limits.app_usage.max }}"
+
+                               value="{{ values.app_usage }}" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="battery_drain">Battery drain (mAh/day)</label>
+
+                        <input id="battery_drain" name="battery_drain" type="number"
+
+                               min="{{ limits.battery_drain.min }}" max="{{ limits.battery_drain.max }}"
+
+                               value="{{ values.battery_drain }}" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="apps_installed">Apps installed</label>
+
+                        <input id="apps_installed" name="apps_installed" type="number"
+
+                               min="{{ limits.apps_installed.min }}" max="{{ limits.apps_installed.max }}"
+
+                               value="{{ values.apps_installed }}" required>
+
+                    </div>
+
+                    <div class="field">
+
+                        <label for="data_usage">Data usage (MB/day)</label>
+
+                        <input id="data_usage" name="data_usage" type="number"
+
+                               min="{{ limits.data_usage.min }}" max="{{ limits.data_usage.max }}"
+
+                               value="{{ values.data_usage }}" required>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="section-label">03 / What-if scenario</div>
+
+                <div class="field">
+
+                    <label for="reduction_minutes">Explore a lower app-usage input</label>
+
+                    <select id="reduction_minutes" name="reduction_minutes">
+
+                        {% for mins in [10, 20, 30, 60] %}
+
+                        <option value="{{ mins }}" {% if reduction_minutes == mins %}selected{% endif %}>{{ mins }} minutes less</option>
+
+                        {% endfor %}
+
+                    </select>
+
+                    <p class="hint">The model scenario and the personal goal are different: the goal is a simple hypothetical calculation, not an ML prediction.</p>
+
+                </div>
+
+
+
+                <button class="submit" type="submit">Calculate my estimate →</button>
+
+            </form>
+
+        </section>
+
+
+
+        <div>
+
+            <section class="card result-card">
+
+                <div class="card-heading">
+
+                    <h2>Your screen-time insight</h2>
+
+                    <p>Estimated daily screen-on time</p>
+
+                </div>
+
+
+
+                {% if prediction is not none %}
+
+                <div class="result-label">Model estimate</div>
+
+                <div class="result-number">{{ "%.2f"|format(prediction) }} <span>hours/day</span></div>
+
+                <p class="result-note">This is a prediction from the dataset-trained model, not a measurement from your phone.</p>
+
+
+
+                <div class="scenario">
+                    <h3>ML what-if scenario</h3>
+                    <div class="scenario-values">
+                        <div>
+                            <strong>{{ "%.2f"|format(prediction) }} h</strong>
+                            <span>Current ML estimate</span>
+                        </div>
+                        <div>
+                            <strong>{{ "%.2f"|format(scenario_prediction) }} h</strong>
+                            <span>What-if ML estimate</span>
+                        </div>
+                    </div>
+                    <p>
+                        When app-usage input is reduced, the model estimate {% if estimated_difference > 0.005 %}decreased by {{ "%.2f"|format(estimated_difference) }} hours{% elif estimated_difference < -0.005 %}increased by {{ "%.2f"|format(0 - estimated_difference) }} hours{% else %}did not meaningfully change{% endif %}. This is a model response, not a guaranteed real-world effect.
+                    </p>
+                </div>
+
+                <div class="scenario">
+                    <h3>Personal screen-time goal</h3>
+                    <div class="scenario-values">
+                        <div>
+                            <strong>{{ "%.2f"|format(goal_estimate) }} h</strong>
+                            <span>Hypothetical daily goal</span>
+                        </div>
+                        <div>
+                            <strong>{{ reduction_minutes }} min</strong>
+                            <span>Chosen reduction</span>
+                        </div>
+                    </div>
+                    <p>This goal is calculated by subtracting the selected minutes from the current ML estimate. It is a planning target, not a second prediction or a measured phone result.</p>
+                </div>
+
+                <div class="scenario">
+                    <h3>Screen-time comparison</h3>
+                    <p>Compare the ML estimates with your hypothetical goal. Bars are scaled to a 24-hour day.</p>
+                    <div class="chart-rows" role="img" aria-label="Horizontal bar comparison of current model estimate, what-if model estimate, and hypothetical screen-time goal">
+                        <div class="chart-row">
+                            <span class="chart-label">Current estimate</span>
+                            <div class="bar-track"><div class="bar-fill bar-model" style="width: {{ [prediction / 24 * 100, 100]|min }}%;"></div></div>
+                            <span class="chart-value">{{ "%.2f"|format(prediction) }} h</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="chart-label">What-if estimate</span>
+                            <div class="bar-track"><div class="bar-fill bar-scenario" style="width: {{ [scenario_prediction / 24 * 100, 100]|min }}%;"></div></div>
+                            <span class="chart-value">{{ "%.2f"|format(scenario_prediction) }} h</span>
+                        </div>
+                        <div class="chart-row">
+                            <span class="chart-label">Personal goal</span>
+                            <div class="bar-track"><div class="bar-fill bar-goal" style="width: {{ [goal_estimate / 24 * 100, 100]|min }}%;"></div></div>
+                            <span class="chart-value">{{ "%.2f"|format(goal_estimate) }} h</span>
+                        </div>
+                    </div>
+                    <p class="goal-note">The personal goal is arithmetic for planning; only the first two values come from the ML model.</p>
+                </div>
+
+
+
+                </div>
+
+                {% else %}
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">◴</div>
+
+                    <h3>Your insight will appear here</h3>
+
+                    <p>Fill in the form and select “Calculate my estimate” to see your screen-time prediction and scenario comparison.</p>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+
+
+
+<section class="card">
+
+    <div class="card-heading">
+
+        <h2>Your personalized insights</h2>
+
+        <p>Practical ideas based on your current inputs and model estimate.</p>
+
+    </div>
+
+
+
+    {% if insights %}
+
+        {% for insight in insights %}
+
+        <div class="suggestion">
+
+            <div class="suggestion-icon">{{ insight.icon }}</div>
+
+            <div>
+
+                <h3>{{ insight }}</h3>
+
+                <p>{{ insight.message }}</p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <div class="empty-icon">🌱</div>
+
+            <h3>Your insights will appear here</h3>
+
+            <p>Calculate your estimate to see suggestions tailored to your inputs.</p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+        </div>
+
+    </main>
+
+
+
+    <p class="disclaimer">
+
+        ScreenWise provides estimates, not measured phone usage or medical advice.
+
+        Results depend on the training dataset and entered values.
+
+    </p>
+
+
+
+    <footer>ScreenWise · A machine-learning project for digital wellbeing</footer>
+
+</div>
+
+
+
+</body>
+
+</html>
