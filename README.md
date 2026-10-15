@@ -95,11 +95,9 @@ The exact files in the `models/` folder may vary depending on the final model ve
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/ScreenWise.git
+git clone https://github.com/Yamuna052/ScreenWise.git
 cd ScreenWise
 ```
-
-Replace `YOUR-USERNAME` with your GitHub username.
 
 ### 2. Create a Virtual Environment
 
